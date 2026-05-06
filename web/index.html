@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hascii-ui</title>
+    <meta
+      name="description"
+      content="Terminal UI components for OpenTUI, distributable via shadcn registry."
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-zinc-950 text-zinc-50">
+    <main class="mx-auto max-w-3xl space-y-16 px-6 py-16 font-mono">
+      <header class="space-y-6">
+        <pre class="text-sm leading-tight whitespace-pre">
+█ █  ▄▀▄  ▄▀▀  ▄▀▀  █  █
+█▀█  █▀█  ▀▀▄  █    █  █
+▀ ▀  ▀ ▀  ▀▀▘  ▀▀▘  ▀  ▀</pre
+        >
+        <p class="text-zinc-400">
+          Terminal UI components for
+          <a href="https://opentui.com" class="text-zinc-50 underline">OpenTUI</a>, distributable
+          via shadcn registry.
+        </p>
+        <div class="flex gap-4 text-sm">
+          <a
+            href="https://github.com/shigurenimo/hascii-ui"
+            class="text-zinc-300 hover:text-zinc-50"
+            >GitHub</a
+          >
+          <a href="/r/all.json" class="text-zinc-300 hover:text-zinc-50">registry</a>
+        </div>
+      </header>
+
+      <section class="space-y-3">
+        <h2 class="text-sm tracking-wide text-zinc-400 uppercase">Setup</h2>
+        <p class="text-sm text-zinc-400">
+          <code>shadcn init</code> requires TailwindCSS, so it fails on TUI-only projects.
+          <code>hascii-ui init</code> drops a minimal <code>components.json</code> with empty
+          Tailwind fields so <code>shadcn add</code> skips the init step. Skip this if your project
+          already has a <code>components.json</code>.
+        </p>
+        <pre
+          class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
+        ><code>bunx @hascii/ui init</code></pre>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm tracking-wide text-zinc-400 uppercase">Install one</h2>
+        <pre
+          class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
+        ><code>npx shadcn@latest add https://ui.hascii.sh/r/button.json</code></pre>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm tracking-wide text-zinc-400 uppercase">Install all</h2>
+        <pre
+          class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
+        ><code>npx shadcn@latest add https://ui.hascii.sh/r/all.json</code></pre>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm tracking-wide text-zinc-400 uppercase">Preview in your terminal</h2>
+        <p class="text-sm text-zinc-400">
+          Run the CLI to browse every component interactively, or render a single component centered
+          in the terminal. Subcommands accept zod-validated options like <code>--variant</code>,
+          <code>--size</code>, and <code>--label</code>. Append <code>--help</code> to any command
+          to see the full option list.
+        </p>
+        <pre
+          class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
+        ><code>bunx @hascii/ui                                        # interactive showcase
+bunx @hascii/ui components button --variant outline --size lg --label save
+bunx @hascii/ui components badge  --variant destructive --label removed
+bunx @hascii/ui components input  --label Email --placeholder you@example.com
+bunx @hascii/ui components --help                      # list every component</code></pre>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-sm tracking-wide text-zinc-400 uppercase">Components</h2>
+        <ul id="component-list" class="space-y-3 text-sm"></ul>
+      </section>
+
+      <footer class="border-t border-zinc-800 pt-6 text-xs text-zinc-500">
+        Built with OpenTUI, Hono, and shadcn registry.
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

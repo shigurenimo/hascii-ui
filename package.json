@@ -1,20 +1,39 @@
 {
-  "name": "hascii-ui",
-  "module": "src/index.tsx",
+  "name": "@hascii/ui",
+  "version": "0.0.1",
+  "description": "Terminal UI components for OpenTUI, distributable via shadcn registry.",
+  "homepage": "https://ui.hascii.sh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shigurenimo/hascii-ui.git"
+  },
+  "bin": {
+    "hascii-ui": "./cli/index.ts"
+  },
+  "files": [
+    "cli",
+    "registry",
+    "web/public/r",
+    "tsconfig.json"
+  ],
   "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run --watch src/index.tsx"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.6",
     "@opentui/core": "^0.2.1",
     "@opentui/react": "^0.2.1",
-    "react": "^19.2.4"
+    "hono": "^4.12.16",
+    "react": "^19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/bun": "latest",
+    "@typescript/native-preview": "^7.0.0-dev.20260505.1",
+    "portless": "^0.12.0",
+    "tailwindcss": "^4.2.4",
+    "vite": "^8.0.10",
+    "vite-plus": "^0.1.20",
+    "vitest": "^4.1.5"
   }
 }

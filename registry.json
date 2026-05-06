@@ -1,0 +1,599 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "hascii-ui",
+  "homepage": "https://ui.hascii.sh",
+  "items": [
+    {
+      "name": "all",
+      "type": "registry:lib",
+      "title": "All hascii-ui components",
+      "description": "Convenience aggregator that pulls every hascii-ui item in one shot.",
+      "registryDependencies": [
+        "hascii-tw-token",
+        "hascii-theme",
+        "hascii-theme-context",
+        "hascii-use-pressable",
+        "focus-group",
+        "badge",
+        "button",
+        "card",
+        "card-content",
+        "card-description",
+        "card-footer",
+        "card-header",
+        "card-title",
+        "dialog",
+        "dialog-content",
+        "dialog-description",
+        "dialog-footer",
+        "dialog-header",
+        "dialog-title",
+        "form-item",
+        "input",
+        "input-otp",
+        "pagination",
+        "progress",
+        "select",
+        "separator",
+        "sidebar",
+        "sidebar-content",
+        "sidebar-header",
+        "sidebar-menu-item",
+        "skeleton",
+        "snackbar",
+        "spinner",
+        "tabs",
+        "toggle-group",
+        "toggle-group-item"
+      ],
+      "files": []
+    },
+    {
+      "name": "hascii-tw-token",
+      "type": "registry:lib",
+      "title": "Tailwind Palette",
+      "description": "Subset of the TailwindCSS default color palette (neutral, zinc, red).",
+      "files": [
+        {
+          "path": "registry/lib/hascii/tw-token.ts",
+          "type": "registry:lib",
+          "target": "@lib/hascii/tw-token.ts"
+        }
+      ]
+    },
+    {
+      "name": "hascii-theme",
+      "type": "registry:lib",
+      "title": "Theme Tokens",
+      "description": "shadcn-style semantic tokens built on top of the Tailwind palette.",
+      "registryDependencies": ["hascii-tw-token"],
+      "files": [
+        {
+          "path": "registry/lib/hascii/theme.ts",
+          "type": "registry:lib",
+          "target": "@lib/hascii/theme.ts"
+        }
+      ]
+    },
+    {
+      "name": "hascii-theme-context",
+      "type": "registry:lib",
+      "title": "Theme Context",
+      "description": "React Context provider and useHasciiTheme hook for component theming.",
+      "dependencies": ["react"],
+      "registryDependencies": ["hascii-theme"],
+      "files": [
+        {
+          "path": "registry/lib/hascii/theme-context.tsx",
+          "type": "registry:lib",
+          "target": "@lib/hascii/theme-context.tsx"
+        }
+      ]
+    },
+    {
+      "name": "focus-group",
+      "type": "registry:ui",
+      "title": "Focus Group",
+      "description": "Manages keyboard focus across an ordered list of children. Tab cycles forward; Shift+Tab cycles back.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/focus-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/focus-group.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hascii-use-pressable",
+      "type": "registry:hook",
+      "title": "usePressable",
+      "description": "Tracks hover and press state for an element and exposes mouse handlers ready for spread.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/hooks/hascii/use-pressable.ts",
+          "type": "registry:hook",
+          "target": "@hooks/hascii/use-pressable.ts"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Compact status indicator with default, secondary, outline, and destructive variants.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/badge.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Focusable terminal button. Background cycles rest/hover/active. Integrates with focus-group via focusId.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable", "focus-group"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/button.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Filled container with header, content, and footer slots. Installs the full Card family.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "card-header",
+        "card-title",
+        "card-description",
+        "card-content",
+        "card-footer"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-content",
+      "type": "registry:ui",
+      "title": "Card Content",
+      "description": "Vertical content region inside a Card.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card-content.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-description",
+      "type": "registry:ui",
+      "title": "Card Description",
+      "description": "Secondary descriptive text rendered under a CardTitle.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card-description.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card-description.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-footer",
+      "type": "registry:ui",
+      "title": "Card Footer",
+      "description": "Horizontal action row inside a Card.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card-footer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card-footer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-header",
+      "type": "registry:ui",
+      "title": "Card Header",
+      "description": "Vertical heading group inside a Card.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card-header.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-title",
+      "type": "registry:ui",
+      "title": "Card Title",
+      "description": "Primary title text inside a CardHeader.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/card-title.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/card-title.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Floating bordered dialog with header, content, and footer slots. Installs the full Dialog family.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "dialog-header",
+        "dialog-title",
+        "dialog-description",
+        "dialog-content",
+        "dialog-footer"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-content",
+      "type": "registry:ui",
+      "title": "Dialog Content",
+      "description": "Vertical body region inside a Dialog.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog-content.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-description",
+      "type": "registry:ui",
+      "title": "Dialog Description",
+      "description": "Secondary descriptive text rendered under a DialogTitle.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog-description.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog-description.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-footer",
+      "type": "registry:ui",
+      "title": "Dialog Footer",
+      "description": "Horizontal action row at the bottom of a Dialog.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog-footer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog-footer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-header",
+      "type": "registry:ui",
+      "title": "Dialog Header",
+      "description": "Header with optional close button at the top of a Dialog.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog-header.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-title",
+      "type": "registry:ui",
+      "title": "Dialog Title",
+      "description": "Primary title text inside a DialogHeader.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/dialog-title.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/dialog-title.tsx"
+        }
+      ]
+    },
+    {
+      "name": "form-item",
+      "type": "registry:ui",
+      "title": "Form Item",
+      "description": "Labelled wrapper around a form field. Supports column or row direction.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/form-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/form-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Single-line text input wrapped in a focused container.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/input.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "Single-character slot row for OTP entry. Highlights the focused slot.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/input-otp.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/input-otp.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Page navigator with previous, next, and numeric jumps.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/pagination.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Horizontal progress bar fed a 0..1 fraction.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/progress.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/progress.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Keyboard-driven option list with descriptions.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/select.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Hairline horizontal or vertical divider drawn with box-drawing characters.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/separator.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Fixed-width vertical sidebar with header, scrollable content, and menu items. Installs the full Sidebar family.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "sidebar-header",
+        "sidebar-content",
+        "sidebar-menu-item"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/sidebar.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/sidebar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-content",
+      "type": "registry:ui",
+      "title": "Sidebar Content",
+      "description": "Scrollable middle region of a Sidebar.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/sidebar-content.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/sidebar-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-header",
+      "type": "registry:ui",
+      "title": "Sidebar Header",
+      "description": "Top section of a Sidebar.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/sidebar-header.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/sidebar-header.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-menu-item",
+      "type": "registry:ui",
+      "title": "Sidebar Menu Item",
+      "description": "Single pressable row inside SidebarContent. Active and hover states shift text color.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/sidebar-menu-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/sidebar-menu-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Static placeholder block for loading states.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/skeleton.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/skeleton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "snackbar",
+      "type": "registry:ui",
+      "title": "Snackbar",
+      "description": "Toast-like overlay that slides in from the right edge.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/snackbar.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/snackbar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Animated single-cell spinner with twenty glyph variants.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/spinner.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/spinner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Single-row segmented tabs. Active tab uses primary fill, inactive tabs use muted fill.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/tabs.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Single- or multi-select segmented row. Installs the toggle-group container plus its item.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["toggle-group-item"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/toggle-group.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/toggle-group.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group-item",
+      "type": "registry:ui",
+      "title": "Toggle Group Item",
+      "description": "Pressable cell inside a HasciiToggleGroup. Pressed state is read from group context.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["toggle-group", "hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/toggle-group-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/toggle-group-item.tsx"
+        }
+      ]
+    }
+  ]
+}

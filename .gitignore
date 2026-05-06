@@ -4,6 +4,8 @@ node_modules
 # output
 out
 dist
+/public
+/web/public/r
 *.tgz
 
 # code coverage
@@ -29,6 +31,10 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # IntelliJ based IDEs
 .idea
+
+# Claude Code state
+.agents
+skills-lock.json
 
 # Finder (MacOS) folder config
 .DS_Store
