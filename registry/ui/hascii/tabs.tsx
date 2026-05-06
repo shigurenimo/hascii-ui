@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { useState } from "react"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
 

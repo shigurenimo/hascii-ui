@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { HasciiButton } from "@/registry/ui/hascii/button"
 import { HasciiDialog } from "@/registry/ui/hascii/dialog"
 import { HasciiDialogContent } from "@/registry/ui/hascii/dialog-content"

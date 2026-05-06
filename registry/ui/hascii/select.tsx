@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import type { SelectOption } from "@opentui/core"
 import { useKeyboard } from "@opentui/react"
 import { useState } from "react"

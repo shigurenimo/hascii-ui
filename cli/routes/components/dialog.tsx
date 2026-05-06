@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { DialogPreview } from "@/cli/components/dialog-preview"
 import { factory } from "@/cli/factory"
