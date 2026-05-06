@@ -24,13 +24,7 @@ export const mainViewHandler = factory.createHandlers(
     const query = c.req.valid("query")
 
     await renderFullscreen(
-      <LayoutPreview
-        title={query.title}
-        body={query.body}
-        status={query.status}
-        headerHeight={3}
-        footerHeight={3}
-      />,
+      <LayoutPreview title={query.title} body={query.body} status={query.status} />,
     )
 
     return c.text("")

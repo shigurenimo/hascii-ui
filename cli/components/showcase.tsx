@@ -7,8 +7,6 @@ import { HasciiCardDescription } from "@/registry/ui/hascii/card-description"
 import { HasciiCardFooter } from "@/registry/ui/hascii/card-footer"
 import { HasciiCardHeader } from "@/registry/ui/hascii/card-header"
 import { HasciiCardTitle } from "@/registry/ui/hascii/card-title"
-import { HasciiFooter } from "@/registry/ui/hascii/footer"
-import { HasciiHeader } from "@/registry/ui/hascii/header"
 import { HasciiInput } from "@/registry/ui/hascii/input"
 import { HasciiInputOtp } from "@/registry/ui/hascii/input-otp"
 import { HasciiMainView } from "@/registry/ui/hascii/main-view"
@@ -99,25 +97,25 @@ export function Showcase() {
   const setSpinnerVariant = spinnerState[1]
 
   return (
-    <box flexGrow={1} flexDirection="column">
-      <HasciiHeader>
-        <text fg={theme.color.cardForeground}>@hascii/ui · {component}</text>
-      </HasciiHeader>
+    <box flexGrow={1} flexDirection="row">
+      <HasciiSidebar width={22}>
+        <HasciiSidebarContent>
+          {COMPONENTS.map((name) => (
+            <HasciiSidebarMenuItem
+              key={name}
+              isActive={component === name}
+              onPress={() => setComponent(name)}
+            >
+              {name}
+            </HasciiSidebarMenuItem>
+          ))}
+        </HasciiSidebarContent>
+      </HasciiSidebar>
 
-      <box flexGrow={1} flexDirection="row">
-        <HasciiSidebar width={22}>
-          <HasciiSidebarContent>
-            {COMPONENTS.map((name) => (
-              <HasciiSidebarMenuItem
-                key={name}
-                isActive={component === name}
-                onPress={() => setComponent(name)}
-              >
-                {name}
-              </HasciiSidebarMenuItem>
-            ))}
-          </HasciiSidebarContent>
-        </HasciiSidebar>
+      <box flexGrow={1} flexDirection="column">
+        <HasciiCard>
+          <text fg={theme.color.cardForeground}>@hascii/ui · {component}</text>
+        </HasciiCard>
 
         <HasciiMainView>
           <box flexGrow={1} alignItems="center" justifyContent="center">
@@ -265,11 +263,11 @@ export function Showcase() {
             ) : null}
           </box>
         </HasciiMainView>
-      </box>
 
-      <HasciiFooter>
-        <text fg={theme.color.cardForeground}>esc to quit</text>
-      </HasciiFooter>
+        <HasciiCard>
+          <text fg={theme.color.cardForeground}>esc to quit</text>
+        </HasciiCard>
+      </box>
     </box>
   )
 }
