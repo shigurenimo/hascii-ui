@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiBadge } from "@/registry/ui/hascii/badge"
 import { factory } from "@/cli/factory"

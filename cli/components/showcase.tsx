@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { useState } from "react"
 import { HasciiBadge } from "@/registry/ui/hascii/badge"
 import { HasciiButton } from "@/registry/ui/hascii/button"

@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { ProgressPreview } from "@/cli/components/progress-preview"
 import { factory } from "@/cli/factory"

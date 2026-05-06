@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import type { ReactNode } from "react"
 import type { HasciiTheme } from "@/registry/lib/hascii/theme"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"

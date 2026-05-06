@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiButton } from "@/registry/ui/hascii/button"
 import { HasciiCard } from "@/registry/ui/hascii/card"

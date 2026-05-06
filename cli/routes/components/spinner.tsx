@@ -1,4 +1,3 @@
-/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiSpinner, SPINNER_KINDS } from "@/registry/ui/hascii/spinner"
 import { factory } from "@/cli/factory"
