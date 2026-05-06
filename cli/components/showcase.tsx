@@ -7,15 +7,17 @@ import { HasciiCardDescription } from "@/registry/ui/hascii/card-description"
 import { HasciiCardFooter } from "@/registry/ui/hascii/card-footer"
 import { HasciiCardHeader } from "@/registry/ui/hascii/card-header"
 import { HasciiCardTitle } from "@/registry/ui/hascii/card-title"
+import { HasciiFooter } from "@/registry/ui/hascii/footer"
+import { HasciiHeader } from "@/registry/ui/hascii/header"
 import { HasciiInput } from "@/registry/ui/hascii/input"
 import { HasciiInputOtp } from "@/registry/ui/hascii/input-otp"
+import { HasciiMainView } from "@/registry/ui/hascii/main-view"
 import { HasciiPagination } from "@/registry/ui/hascii/pagination"
 import { HasciiProgress } from "@/registry/ui/hascii/progress"
 import { HasciiSelect } from "@/registry/ui/hascii/select"
 import { HasciiSeparator } from "@/registry/ui/hascii/separator"
 import { HasciiSidebar } from "@/registry/ui/hascii/sidebar"
 import { HasciiSidebarContent } from "@/registry/ui/hascii/sidebar-content"
-import { HasciiSidebarHeader } from "@/registry/ui/hascii/sidebar-header"
 import { HasciiSidebarMenuItem } from "@/registry/ui/hascii/sidebar-menu-item"
 import { HasciiSkeleton } from "@/registry/ui/hascii/skeleton"
 import { HasciiSpinner, SPINNER_KINDS } from "@/registry/ui/hascii/spinner"
@@ -97,172 +99,177 @@ export function Showcase() {
   const setSpinnerVariant = spinnerState[1]
 
   return (
-    <box flexGrow={1} flexDirection="row">
-      <HasciiSidebar width={22}>
-        <HasciiSidebarHeader>
-          <text>@hascii/ui</text>
-        </HasciiSidebarHeader>
-        <HasciiSidebarContent>
-          {COMPONENTS.map((name) => (
-            <HasciiSidebarMenuItem
-              key={name}
-              isActive={component === name}
-              onPress={() => setComponent(name)}
-            >
-              {name}
-            </HasciiSidebarMenuItem>
-          ))}
-        </HasciiSidebarContent>
-      </HasciiSidebar>
+    <box flexGrow={1} flexDirection="column">
+      <HasciiHeader>
+        <text fg={theme.color.cardForeground}>@hascii/ui · {component}</text>
+      </HasciiHeader>
 
-      <box flexGrow={1} flexDirection="column" backgroundColor={theme.color.background}>
-        <box
-          flexGrow={1}
-          alignItems="center"
-          justifyContent="center"
-          paddingLeft={2}
-          paddingRight={2}
-        >
-          {component === "badge" ? (
-            <HasciiBadge variant={badgeControls.variant}>badge</HasciiBadge>
-          ) : null}
-          {component === "button" ? (
-            <HasciiButton variant={buttonControls.variant} size={buttonControls.size}>
-              Button
-            </HasciiButton>
-          ) : null}
-          {component === "card" ? (
-            <HasciiCard width={48}>
-              <HasciiCardHeader>
-                <HasciiCardTitle>hascii</HasciiCardTitle>
-                <HasciiCardDescription>hello@hascii.sh</HasciiCardDescription>
-              </HasciiCardHeader>
-              <HasciiCardContent>
-                <text>Profile details and account preferences live here.</text>
-              </HasciiCardContent>
-              <HasciiCardFooter>
-                <HasciiButton variant="secondary" size="sm">
-                  Cancel
-                </HasciiButton>
-                <HasciiButton variant="default" size="sm">
-                  Save
-                </HasciiButton>
-              </HasciiCardFooter>
-            </HasciiCard>
-          ) : null}
-          {component === "input" ? (
-            <HasciiInput variant={inputControls.variant} placeholder="you@example.com" isFocused />
-          ) : null}
-          {component === "input-otp" ? <HasciiInputOtp length={6} /> : null}
-          {component === "pagination" ? <HasciiPagination page={1} pageCount={10} /> : null}
-          {component === "progress" ? <HasciiProgress value={0.4} /> : null}
-          {component === "select" ? (
-            <HasciiSelect options={SAMPLE_OPTIONS} width={36} height={14} />
-          ) : null}
-          {component === "separator" ? <HasciiSeparator length={32} /> : null}
-          {component === "skeleton" ? <HasciiSkeleton width={32} height={1} /> : null}
-          {component === "spinner" ? <HasciiSpinner variant={spinnerVariant} /> : null}
-          {component === "tabs" ? <HasciiTabs items={TAB_ITEMS} defaultValue="overview" /> : null}
-          {component === "toggle-group" ? (
-            <HasciiToggleGroup type="single" defaultValue="left">
-              <HasciiToggleGroupItem value="left">Left</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="center">Center</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="right">Right</HasciiToggleGroupItem>
-            </HasciiToggleGroup>
-          ) : null}
-        </box>
+      <box flexGrow={1} flexDirection="row">
+        <HasciiSidebar width={22}>
+          <HasciiSidebarContent>
+            {COMPONENTS.map((name) => (
+              <HasciiSidebarMenuItem
+                key={name}
+                isActive={component === name}
+                onPress={() => setComponent(name)}
+              >
+                {name}
+              </HasciiSidebarMenuItem>
+            ))}
+          </HasciiSidebarContent>
+        </HasciiSidebar>
 
-        <box
-          flexDirection="column"
-          paddingTop={1}
-          paddingBottom={1}
-          paddingLeft={2}
-          paddingRight={2}
-          backgroundColor={theme.color.muted}
-          gap={1}
-        >
-          {component === "button" ? (
-            <>
+        <HasciiMainView>
+          <box flexGrow={1} alignItems="center" justifyContent="center">
+            {component === "badge" ? (
+              <HasciiBadge variant={badgeControls.variant}>badge</HasciiBadge>
+            ) : null}
+            {component === "button" ? (
+              <HasciiButton variant={buttonControls.variant} size={buttonControls.size}>
+                Button
+              </HasciiButton>
+            ) : null}
+            {component === "card" ? (
+              <HasciiCard width={48}>
+                <HasciiCardHeader>
+                  <HasciiCardTitle>hascii</HasciiCardTitle>
+                  <HasciiCardDescription>hello@hascii.sh</HasciiCardDescription>
+                </HasciiCardHeader>
+                <HasciiCardContent>
+                  <text>Profile details and account preferences live here.</text>
+                </HasciiCardContent>
+                <HasciiCardFooter>
+                  <HasciiButton variant="secondary" size="sm">
+                    Cancel
+                  </HasciiButton>
+                  <HasciiButton variant="default" size="sm">
+                    Save
+                  </HasciiButton>
+                </HasciiCardFooter>
+              </HasciiCard>
+            ) : null}
+            {component === "input" ? (
+              <HasciiInput
+                variant={inputControls.variant}
+                placeholder="you@example.com"
+                isFocused
+              />
+            ) : null}
+            {component === "input-otp" ? <HasciiInputOtp length={6} /> : null}
+            {component === "pagination" ? <HasciiPagination page={1} pageCount={10} /> : null}
+            {component === "progress" ? <HasciiProgress value={0.4} /> : null}
+            {component === "select" ? (
+              <HasciiSelect options={SAMPLE_OPTIONS} width={36} height={14} />
+            ) : null}
+            {component === "separator" ? <HasciiSeparator length={32} /> : null}
+            {component === "skeleton" ? <HasciiSkeleton width={32} height={1} /> : null}
+            {component === "spinner" ? <HasciiSpinner variant={spinnerVariant} /> : null}
+            {component === "tabs" ? <HasciiTabs items={TAB_ITEMS} defaultValue="overview" /> : null}
+            {component === "toggle-group" ? (
+              <HasciiToggleGroup type="single" defaultValue="left">
+                <HasciiToggleGroupItem value="left">Left</HasciiToggleGroupItem>
+                <HasciiToggleGroupItem value="center">Center</HasciiToggleGroupItem>
+                <HasciiToggleGroupItem value="right">Right</HasciiToggleGroupItem>
+              </HasciiToggleGroup>
+            ) : null}
+          </box>
+
+          <box
+            flexDirection="column"
+            paddingTop={1}
+            paddingBottom={1}
+            paddingLeft={2}
+            paddingRight={2}
+            backgroundColor={theme.color.muted}
+            gap={1}
+          >
+            {component === "button" ? (
+              <>
+                <HasciiToggleGroup
+                  type="single"
+                  value={buttonControls.variant}
+                  onChange={(value) =>
+                    setButtonControls({
+                      ...buttonControls,
+                      variant: value as ButtonControls["variant"],
+                    })
+                  }
+                >
+                  <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="secondary">secondary</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="outline">outline</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="ghost">ghost</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="destructive">destructive</HasciiToggleGroupItem>
+                </HasciiToggleGroup>
+                <HasciiToggleGroup
+                  type="single"
+                  value={buttonControls.size}
+                  onChange={(value) =>
+                    setButtonControls({
+                      ...buttonControls,
+                      size: value as ButtonControls["size"],
+                    })
+                  }
+                >
+                  <HasciiToggleGroupItem value="sm">sm</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
+                  <HasciiToggleGroupItem value="lg">lg</HasciiToggleGroupItem>
+                </HasciiToggleGroup>
+              </>
+            ) : null}
+
+            {component === "badge" ? (
               <HasciiToggleGroup
                 type="single"
-                value={buttonControls.variant}
+                value={badgeControls.variant}
                 onChange={(value) =>
-                  setButtonControls({
-                    ...buttonControls,
-                    variant: value as ButtonControls["variant"],
+                  setBadgeControls({
+                    variant: value as BadgeControls["variant"],
                   })
                 }
               >
                 <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
                 <HasciiToggleGroupItem value="secondary">secondary</HasciiToggleGroupItem>
                 <HasciiToggleGroupItem value="outline">outline</HasciiToggleGroupItem>
-                <HasciiToggleGroupItem value="ghost">ghost</HasciiToggleGroupItem>
                 <HasciiToggleGroupItem value="destructive">destructive</HasciiToggleGroupItem>
               </HasciiToggleGroup>
+            ) : null}
+
+            {component === "input" ? (
               <HasciiToggleGroup
                 type="single"
-                value={buttonControls.size}
+                value={inputControls.variant}
                 onChange={(value) =>
-                  setButtonControls({
-                    ...buttonControls,
-                    size: value as ButtonControls["size"],
+                  setInputControls({
+                    variant: value as InputControls["variant"],
                   })
                 }
               >
-                <HasciiToggleGroupItem value="sm">sm</HasciiToggleGroupItem>
                 <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
-                <HasciiToggleGroupItem value="lg">lg</HasciiToggleGroupItem>
+                <HasciiToggleGroupItem value="outline">outline</HasciiToggleGroupItem>
               </HasciiToggleGroup>
-            </>
-          ) : null}
+            ) : null}
 
-          {component === "badge" ? (
-            <HasciiToggleGroup
-              type="single"
-              value={badgeControls.variant}
-              onChange={(value) =>
-                setBadgeControls({
-                  variant: value as BadgeControls["variant"],
-                })
-              }
-            >
-              <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="secondary">secondary</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="outline">outline</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="destructive">destructive</HasciiToggleGroupItem>
-            </HasciiToggleGroup>
-          ) : null}
-
-          {component === "input" ? (
-            <HasciiToggleGroup
-              type="single"
-              value={inputControls.variant}
-              onChange={(value) =>
-                setInputControls({
-                  variant: value as InputControls["variant"],
-                })
-              }
-            >
-              <HasciiToggleGroupItem value="default">default</HasciiToggleGroupItem>
-              <HasciiToggleGroupItem value="outline">outline</HasciiToggleGroupItem>
-            </HasciiToggleGroup>
-          ) : null}
-
-          {component === "spinner" ? (
-            <HasciiToggleGroup
-              type="single"
-              value={spinnerVariant}
-              onChange={(value) => setSpinnerVariant(value as SpinnerKind)}
-            >
-              {Object.keys(SPINNER_KINDS).map((kind) => (
-                <HasciiToggleGroupItem key={kind} value={kind}>
-                  {kind}
-                </HasciiToggleGroupItem>
-              ))}
-            </HasciiToggleGroup>
-          ) : null}
-        </box>
+            {component === "spinner" ? (
+              <HasciiToggleGroup
+                type="single"
+                value={spinnerVariant}
+                onChange={(value) => setSpinnerVariant(value as SpinnerKind)}
+              >
+                {Object.keys(SPINNER_KINDS).map((kind) => (
+                  <HasciiToggleGroupItem key={kind} value={kind}>
+                    {kind}
+                  </HasciiToggleGroupItem>
+                ))}
+              </HasciiToggleGroup>
+            ) : null}
+          </box>
+        </HasciiMainView>
       </box>
+
+      <HasciiFooter>
+        <text fg={theme.color.cardForeground}>esc to quit</text>
+      </HasciiFooter>
     </box>
   )
 }
