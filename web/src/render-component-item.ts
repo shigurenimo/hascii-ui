@@ -13,7 +13,7 @@ export function renderComponentItem(props: Props): HTMLLIElement {
   item.className = "flex flex-col gap-2"
 
   const heading = document.createElement(props.isChild ? "h4" : "h3")
-  heading.className = props.isChild ? "text-sm text-zinc-300" : "text-base font-bold text-zinc-50"
+  heading.className = props.isChild ? "text-base text-zinc-300" : "text-xl font-bold text-zinc-50"
   heading.textContent = props.title ?? props.name
   item.appendChild(heading)
 
