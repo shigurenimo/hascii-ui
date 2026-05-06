@@ -46,9 +46,11 @@ export function HasciiSidebarMenuItem(props: Props) {
     <box
       paddingTop={1}
       paddingBottom={1}
-      paddingLeft={2}
+      paddingLeft={isActive ? 1 : 2}
       paddingRight={2}
       backgroundColor={bg}
+      border={isActive ? ["left"] : false}
+      borderColor={theme.color.primary}
       {...press.bind}
     >
       <text fg={fg}>{props.children}</text>
