@@ -15,6 +15,9 @@ export type HasciiTheme = {
     secondaryHover: string
     secondaryActive: string
 
+    card: string
+    cardForeground: string
+
     muted: string
     mutedForeground: string
 
@@ -49,6 +52,9 @@ export const hasciiTheme: HasciiTheme = {
     secondaryForeground: hasciiTw.colors.zinc[50],
     secondaryHover: hasciiTw.colors.zinc[700],
     secondaryActive: hasciiTw.colors.zinc[600],
+
+    card: hasciiTw.colors.zinc[900],
+    cardForeground: hasciiTw.colors.zinc[50],
 
     muted: hasciiTw.colors.zinc[800],
     mutedForeground: hasciiTw.colors.zinc[400],

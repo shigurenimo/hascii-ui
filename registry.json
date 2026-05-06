@@ -28,9 +28,12 @@
         "dialog-footer",
         "dialog-header",
         "dialog-title",
+        "footer",
         "form-item",
+        "header",
         "input",
         "input-otp",
+        "main-view",
         "pagination",
         "progress",
         "select",
@@ -338,6 +341,21 @@
       ]
     },
     {
+      "name": "footer",
+      "type": "registry:ui",
+      "title": "Footer",
+      "description": "Full-width bottom bar. Sits below HasciiMainView. Uses theme.color.card for a tone distinct from sidebar.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/footer.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/footer.tsx"
+        }
+      ]
+    },
+    {
       "name": "form-item",
       "type": "registry:ui",
       "title": "Form Item",
@@ -349,6 +367,21 @@
           "path": "registry/ui/hascii/form-item.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/form-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "header",
+      "type": "registry:ui",
+      "title": "Header",
+      "description": "Full-width top bar. Sits above HasciiMainView. Uses theme.color.card for a tone distinct from sidebar.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/header.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/header.tsx"
         }
       ]
     },
@@ -379,6 +412,21 @@
           "path": "registry/ui/hascii/input-otp.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/input-otp.tsx"
+        }
+      ]
+    },
+    {
+      "name": "main-view",
+      "type": "registry:ui",
+      "title": "Main View",
+      "description": "Flex-grow content region between HasciiHeader and HasciiFooter.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/main-view.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/main-view.tsx"
         }
       ]
     },
