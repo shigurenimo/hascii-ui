@@ -9,7 +9,6 @@ import { HasciiCardHeader } from "@/registry/ui/hascii/card-header"
 import { HasciiCardTitle } from "@/registry/ui/hascii/card-title"
 import { HasciiInput } from "@/registry/ui/hascii/input"
 import { HasciiInputOtp } from "@/registry/ui/hascii/input-otp"
-import { HasciiMainView } from "@/registry/ui/hascii/main-view"
 import { HasciiPagination } from "@/registry/ui/hascii/pagination"
 import { HasciiProgress } from "@/registry/ui/hascii/progress"
 import { HasciiSelect } from "@/registry/ui/hascii/select"
@@ -117,7 +116,14 @@ export function Showcase() {
           <text fg={theme.color.cardForeground}>@hascii/ui · {component}</text>
         </HasciiCard>
 
-        <HasciiMainView>
+        <box
+          flexGrow={1}
+          flexDirection="column"
+          gap={1}
+          paddingTop={1}
+          paddingLeft={2}
+          paddingRight={2}
+        >
           <box flexGrow={1} alignItems="center" justifyContent="center">
             {component === "badge" ? (
               <HasciiBadge variant={badgeControls.variant}>badge</HasciiBadge>
@@ -262,7 +268,7 @@ export function Showcase() {
               </HasciiToggleGroup>
             ) : null}
           </box>
-        </HasciiMainView>
+        </box>
 
         <HasciiCard>
           <text fg={theme.color.cardForeground}>esc to quit</text>

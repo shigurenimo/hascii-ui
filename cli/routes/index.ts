@@ -7,7 +7,6 @@ import { dialogHandler } from "@/cli/routes/components/dialog"
 import { formItemHandler } from "@/cli/routes/components/form-item"
 import { inputHandler } from "@/cli/routes/components/input"
 import { inputOtpHandler } from "@/cli/routes/components/input-otp"
-import { mainViewHandler } from "@/cli/routes/components/main-view"
 import { paginationHandler } from "@/cli/routes/components/pagination"
 import { progressHandler } from "@/cli/routes/components/progress"
 import { selectHandler } from "@/cli/routes/components/select"
@@ -27,7 +26,6 @@ export const COMPONENT_NAMES = [
   "form-item",
   "input",
   "input-otp",
-  "main-view",
   "pagination",
   "progress",
   "select",
@@ -58,7 +56,6 @@ const components = factory
   .get("/form-item", ...formItemHandler)
   .get("/input", ...inputHandler)
   .get("/input-otp", ...inputOtpHandler)
-  .get("/main-view", ...mainViewHandler)
   .get("/pagination", ...paginationHandler)
   .get("/progress", ...progressHandler)
   .get("/select", ...selectHandler)

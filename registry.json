@@ -31,7 +31,6 @@
         "form-item",
         "input",
         "input-otp",
-        "main-view",
         "pagination",
         "progress",
         "select",
@@ -380,21 +379,6 @@
           "path": "registry/ui/hascii/input-otp.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/input-otp.tsx"
-        }
-      ]
-    },
-    {
-      "name": "main-view",
-      "type": "registry:ui",
-      "title": "Main View",
-      "description": "Flex-grow content region between HasciiHeader and HasciiFooter.",
-      "dependencies": ["@opentui/core", "@opentui/react", "react"],
-      "registryDependencies": ["hascii-theme-context"],
-      "files": [
-        {
-          "path": "registry/ui/hascii/main-view.tsx",
-          "type": "registry:ui",
-          "target": "@ui/hascii/main-view.tsx"
         }
       ]
     },
