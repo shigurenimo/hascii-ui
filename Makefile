@@ -1,4 +1,4 @@
-.PHONY: dev web build registry
+.PHONY: dev web build build-cli registry
 
 dev:
 	bun run --watch cli/index.ts
@@ -6,8 +6,11 @@ dev:
 web: registry
 	bunx portless run vite
 
-build: registry
+build: registry build-cli
 	bunx vite build
+
+build-cli:
+	bun run build:cli
 
 registry:
 	bunx shadcn build --output web/public/r

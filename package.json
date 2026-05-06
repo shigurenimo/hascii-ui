@@ -9,15 +9,18 @@
     "url": "git+https://github.com/shigurenimo/hascii-ui.git"
   },
   "bin": {
-    "hascii-ui": "./cli/index.ts"
+    "hascii-ui": "./dist/index.js"
   },
   "files": [
-    "cli",
+    "dist",
     "registry",
-    "web/public/r",
-    "tsconfig.json"
+    "web/public/r"
   ],
   "type": "module",
+  "scripts": {
+    "build:cli": "bun build cli/index.ts --outdir dist --target bun --external '@opentui/*' --external 'react' --external 'react-reconciler' --external 'hono' --external '@hono/*' --external 'zod' && chmod +x dist/index.js",
+    "prepublishOnly": "bun run build:cli"
+  },
   "dependencies": {
     "@hono/zod-validator": "^0.7.6",
     "@opentui/core": "^0.2.1",
