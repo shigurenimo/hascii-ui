@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiSnackbar } from "@/registry/ui/hascii/snackbar"
 import { factory } from "@/cli/factory"

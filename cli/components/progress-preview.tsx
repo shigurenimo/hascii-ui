@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { useKeyboard } from "@opentui/react"
 import { useState } from "react"
 import { HasciiProgress } from "@/registry/ui/hascii/progress"

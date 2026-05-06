@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import type { ReactNode } from "react"
 import { useHasciiToggleGroup } from "@/registry/ui/hascii/toggle-group"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"

@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
 
 type Orientation = "horizontal" | "vertical"

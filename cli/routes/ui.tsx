@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { factory } from "@/cli/factory"
 import { Showcase } from "@/cli/components/showcase"
 import { renderFullscreen } from "@/cli/render-fullscreen"

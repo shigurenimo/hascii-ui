@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { createCliRenderer } from "@opentui/core"
 import { createRoot } from "@opentui/react"
 import { createElement } from "react"

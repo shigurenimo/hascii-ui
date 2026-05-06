@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { useKeyboard, useRenderer } from "@opentui/react"
 import type { ReactNode } from "react"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"

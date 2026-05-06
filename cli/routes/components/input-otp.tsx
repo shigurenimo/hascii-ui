@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiInputOtp } from "@/registry/ui/hascii/input-otp"
 import { factory } from "@/cli/factory"

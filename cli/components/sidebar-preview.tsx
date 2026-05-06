@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { useState } from "react"
 import { HasciiSidebar } from "@/registry/ui/hascii/sidebar"
 import { HasciiSidebarContent } from "@/registry/ui/hascii/sidebar-content"
