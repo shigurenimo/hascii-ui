@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiPagination } from "@/registry/ui/hascii/pagination"
 import { factory } from "@/cli/factory"

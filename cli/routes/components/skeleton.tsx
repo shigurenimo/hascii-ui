@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiSkeleton } from "@/registry/ui/hascii/skeleton"
 import { factory } from "@/cli/factory"

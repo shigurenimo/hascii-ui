@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { HasciiSeparator } from "@/registry/ui/hascii/separator"
 import { factory } from "@/cli/factory"

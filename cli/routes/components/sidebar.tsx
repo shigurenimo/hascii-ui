@@ -1,3 +1,4 @@
+/** @jsxImportSource @opentui/react */
 import { z } from "zod"
 import { SidebarPreview } from "@/cli/components/sidebar-preview"
 import { factory } from "@/cli/factory"
