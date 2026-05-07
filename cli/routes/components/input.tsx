@@ -33,7 +33,7 @@ export const inputHandler = factory.createHandlers(
         placeholder={query.placeholder}
         value={query.value}
         width={query.width}
-        isFocused={query.focused}
+        defaultFocused={query.focused}
       />,
     )
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import type { ReactNode } from "react"
+import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
 
 type SelectionMode = "single" | "multiple"
 
@@ -39,6 +40,7 @@ const isSingle = (props: Props): props is SingleProps & { children?: ReactNode }
 
 /** Segmented row of HasciiToggleGroupItem. type="single" is mutually exclusive; type="multiple" allows any subset. */
 export function HasciiToggleGroup(props: Props) {
+  const theme = useHasciiTheme()
   const internalSingleState = useState<string>(isSingle(props) ? (props.defaultValue ?? "") : "")
   const internalMultipleState = useState<string[]>(
     !isSingle(props) ? (props.defaultValue ?? []) : [],
@@ -62,7 +64,7 @@ export function HasciiToggleGroup(props: Props) {
 
     return (
       <ToggleGroupContext.Provider value={ctx}>
-        <box flexDirection="row" gap={0} height={1}>
+        <box flexDirection="row" gap={0} height={1} backgroundColor={theme.color.popover}>
           {props.children}
         </box>
       </ToggleGroupContext.Provider>

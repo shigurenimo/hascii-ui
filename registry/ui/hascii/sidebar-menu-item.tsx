@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import type { HasciiTheme } from "@/registry/lib/hascii/theme"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
+import { hasciiTw } from "@/registry/lib/hascii/tw-token"
 import { usePressable } from "@/registry/hooks/hascii/use-pressable"
 
 export type Props = {
@@ -19,14 +20,15 @@ const pickBg = (
 ): string | undefined => {
   if (isDisabled) return undefined
   if (isPressed) return theme.color.secondaryActive
-  if (isHovered) {
-    return isActive ? theme.color.secondaryActive : theme.color.secondaryHover
-  }
-  if (isActive) return theme.color.secondaryHover
+  if (isHovered && isActive) return hasciiTw.colors.zinc[500]
+  if (isHovered) return theme.color.secondaryHover
+  if (isActive) return theme.color.secondaryActive
   return undefined
 }
 
-/** Single pressable row inside HasciiSidebarContent. Background mirrors the button rest/hover/active progression. */
+const ROW_HEIGHT = 3
+
+/** Single pressable row inside HasciiSidebarContent. Active items show a thin left rule using ▏ glyphs. */
 export function HasciiSidebarMenuItem(props: Props) {
   const isActive = props.isActive ?? false
   const isDisabled = props.isDisabled ?? false
@@ -46,13 +48,20 @@ export function HasciiSidebarMenuItem(props: Props) {
     <box
       paddingTop={1}
       paddingBottom={1}
-      paddingLeft={isActive ? 1 : 2}
+      paddingLeft={2}
       paddingRight={2}
       backgroundColor={bg}
-      border={isActive ? ["left"] : false}
-      borderColor={theme.color.primary}
       {...press.bind}
     >
+      {isActive ? (
+        <box position="absolute" left={0} top={0} bottom={0} flexDirection="column">
+          {Array.from({ length: ROW_HEIGHT }, (_, index) => (
+            <text key={index} fg={theme.color.primary}>
+              ▏
+            </text>
+          ))}
+        </box>
+      ) : null}
       <text fg={fg}>{props.children}</text>
     </box>
   )

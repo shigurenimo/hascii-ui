@@ -12,6 +12,7 @@
         "hascii-tw-token",
         "hascii-theme",
         "hascii-theme-context",
+        "hascii-input-focus-context",
         "hascii-use-pressable",
         "focus-group",
         "badge",
@@ -28,7 +29,6 @@
         "dialog-footer",
         "dialog-header",
         "dialog-title",
-        "form-item",
         "input",
         "input-otp",
         "pagination",
@@ -87,6 +87,20 @@
           "path": "registry/lib/hascii/theme-context.tsx",
           "type": "registry:lib",
           "target": "@lib/hascii/theme-context.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hascii-input-focus-context",
+      "type": "registry:lib",
+      "title": "Input Focus Context",
+      "description": "Provider that tracks the currently focused HasciiInput so outside clicks can blur it.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/lib/hascii/input-focus-context.tsx",
+          "type": "registry:lib",
+          "target": "@lib/hascii/input-focus-context.tsx"
         }
       ]
     },
@@ -338,27 +352,12 @@
       ]
     },
     {
-      "name": "form-item",
-      "type": "registry:ui",
-      "title": "Form Item",
-      "description": "Labelled wrapper around a form field. Supports column or row direction.",
-      "dependencies": ["@opentui/core", "@opentui/react", "react"],
-      "registryDependencies": ["hascii-theme-context"],
-      "files": [
-        {
-          "path": "registry/ui/hascii/form-item.tsx",
-          "type": "registry:ui",
-          "target": "@ui/hascii/form-item.tsx"
-        }
-      ]
-    },
-    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
       "description": "Single-line text input wrapped in a focused container.",
       "dependencies": ["@opentui/core", "@opentui/react", "react"],
-      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "registryDependencies": ["hascii-theme-context", "hascii-input-focus-context"],
       "files": [
         {
           "path": "registry/ui/hascii/input.tsx",

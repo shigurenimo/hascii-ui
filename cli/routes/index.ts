@@ -4,7 +4,6 @@ import { badgeHandler } from "@/cli/routes/components/badge"
 import { buttonHandler } from "@/cli/routes/components/button"
 import { cardHandler } from "@/cli/routes/components/card"
 import { dialogHandler } from "@/cli/routes/components/dialog"
-import { formItemHandler } from "@/cli/routes/components/form-item"
 import { inputHandler } from "@/cli/routes/components/input"
 import { inputOtpHandler } from "@/cli/routes/components/input-otp"
 import { paginationHandler } from "@/cli/routes/components/pagination"
@@ -23,7 +22,6 @@ export const COMPONENT_NAMES = [
   "button",
   "card",
   "dialog",
-  "form-item",
   "input",
   "input-otp",
   "pagination",
@@ -53,7 +51,6 @@ const components = factory
   .get("/button", ...buttonHandler)
   .get("/card", ...cardHandler)
   .get("/dialog", ...dialogHandler)
-  .get("/form-item", ...formItemHandler)
   .get("/input", ...inputHandler)
   .get("/input-otp", ...inputOtpHandler)
   .get("/pagination", ...paginationHandler)

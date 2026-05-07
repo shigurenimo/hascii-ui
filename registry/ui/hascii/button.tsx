@@ -20,9 +20,9 @@ export type Props = {
 
 const sizeDims: Record<Size, { paddingX: number; height: number }> = {
   default: { paddingX: 2, height: 1 },
-  sm: { paddingX: 1, height: 1 },
-  md: { paddingX: 2, height: 1 },
-  lg: { paddingX: 3, height: 3 },
+  sm: { paddingX: 0, height: 1 },
+  md: { paddingX: 1, height: 1 },
+  lg: { paddingX: 2, height: 3 },
 }
 
 const pickBg = (
