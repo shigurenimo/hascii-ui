@@ -1,7 +1,6 @@
 import type { ReactNode } from "react"
 import type { HasciiTheme } from "@/registry/lib/hascii/theme"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
-import { hasciiTw } from "@/registry/lib/hascii/tw-token"
 import { usePressable } from "@/registry/hooks/hascii/use-pressable"
 
 export type Props = {
@@ -20,7 +19,7 @@ const pickBg = (
 ): string | undefined => {
   if (isDisabled) return undefined
   if (isPressed) return theme.color.secondaryActive
-  if (isHovered && isActive) return hasciiTw.colors.zinc[500]
+  if (isHovered && isActive) return theme.color.hoverActive
   if (isHovered) return theme.color.secondaryHover
   if (isActive) return theme.color.secondaryActive
   return undefined

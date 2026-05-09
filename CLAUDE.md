@@ -7,13 +7,12 @@ registry.json              shadcn registry manifest (edit this)
 public/                    Vite build output (gitignore, deploy target, never edit by hand)
 web/                       documentation site source (Vite + TailwindCSS)
   index.html
-  src/main.ts
   src/style.css
   public/CNAME             custom domain
   public/r/                shadcn build output (gitignore, served in dev too)
 registry/
   ui/hascii/               component sources (registry:ui)
-  lib/hascii/              tw-token / theme / theme-context (registry:lib)
+  lib/hascii/              theme (with tokens.json) / theme-context / input-focus-context (registry:lib)
   hooks/hascii/            use-pressable (registry:hook)
 cli/
   index.ts                 CLI entry (init / components / serve)
@@ -37,9 +36,15 @@ Add `cli/routes/components/<name>.tsx` with a zod-validated handler.
 
 Append the name to `COMPONENT_NAMES` in `cli/routes/index.ts` and mount it with `components.get("/<name>", ...)`.
 
-Add an entry to `registry.json` `items`, and append it to the `all` item's `registryDependencies`.
+Add an entry to `registry.json` `items`.
 
-Run `make registry` to regenerate `web/public/r/<name>.json`.
+Run `make registry` to regenerate `web/public/r/<name>.json` (this depends on `make tokens`, so DESIGN.md is also re-exported).
+
+## Theme
+
+`DESIGN.md` (google-labs-code/design.md spec) is the single source of truth for color tokens. `make tokens` runs `npx @google/design.md export DESIGN.md --format tailwind` to produce `registry/lib/hascii/tokens.json`. `theme.ts` imports that JSON and validates it with zod, then maps kebab-case keys to the camelCase `HasciiTheme` shape.
+
+To add or change a color, edit `DESIGN.md`, then `make tokens && make registry`.
 
 ## Makefile
 
@@ -47,9 +52,11 @@ Run `make registry` to regenerate `web/public/r/<name>.json`.
 
 `make web` boots the documentation site. portless maps it to `https://ui.hascii.sh.localhost`. registry is rebuilt first, then the vite dev server starts.
 
-`make build` runs registry then vite build, producing `public/`.
+`make build` runs `tokens`, `registry`, `build-cli`, then `vite build`, producing `public/`.
 
-`make registry` runs `bunx shadcn build --output web/public/r` to regenerate per-item JSON.
+`make registry` runs `make tokens` then `bunx shadcn build --output web/public/r` to regenerate per-item JSON.
+
+`make tokens` regenerates `registry/lib/hascii/tokens.json` from `DESIGN.md`.
 
 ## Rules
 

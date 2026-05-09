@@ -7,15 +7,18 @@
       "name": "all",
       "type": "registry:lib",
       "title": "All hascii-ui components",
-      "description": "Convenience aggregator that pulls every hascii-ui item in one shot.",
+      "description": "Aggregator that pulls every hascii-ui item via registryDependencies. Install with `npx shadcn@latest add @hascii/all`.",
       "registryDependencies": [
-        "hascii-tw-token",
         "hascii-theme",
         "hascii-theme-context",
         "hascii-input-focus-context",
         "hascii-use-pressable",
         "focus-group",
+        "accordion",
+        "accordion-item",
+        "alert-dialog",
         "badge",
+        "breadcrumb",
         "button",
         "card",
         "card-content",
@@ -23,12 +26,15 @@
         "card-footer",
         "card-header",
         "card-title",
+        "checkbox",
+        "command",
         "dialog",
         "dialog-content",
         "dialog-description",
         "dialog-footer",
         "dialog-header",
         "dialog-title",
+        "file-tree",
         "input",
         "input-otp",
         "pagination",
@@ -40,38 +46,37 @@
         "sidebar-header",
         "sidebar-menu-item",
         "skeleton",
+        "slider",
         "snackbar",
+        "sparkline",
         "spinner",
+        "stepper",
+        "switch",
+        "table",
         "tabs",
         "toggle-group",
-        "toggle-group-item"
+        "toggle-group-item",
+        "tree"
       ],
       "files": []
-    },
-    {
-      "name": "hascii-tw-token",
-      "type": "registry:lib",
-      "title": "Tailwind Palette",
-      "description": "Subset of the TailwindCSS default color palette (neutral, zinc, red).",
-      "files": [
-        {
-          "path": "registry/lib/hascii/tw-token.ts",
-          "type": "registry:lib",
-          "target": "@lib/hascii/tw-token.ts"
-        }
-      ]
     },
     {
       "name": "hascii-theme",
       "type": "registry:lib",
       "title": "Theme Tokens",
-      "description": "shadcn-style semantic tokens built on top of the Tailwind palette.",
-      "registryDependencies": ["hascii-tw-token"],
+      "description": "Semantic tokens loaded from tokens.json (generated from DESIGN.md) and validated with zod, plus the underlying Tailwind palette subset.",
+      "dependencies": ["zod"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "registry/lib/hascii/theme.ts",
           "type": "registry:lib",
           "target": "@lib/hascii/theme.ts"
+        },
+        {
+          "path": "registry/lib/hascii/tokens.json",
+          "type": "registry:lib",
+          "target": "@lib/hascii/tokens.json"
         }
       ]
     },
@@ -260,10 +265,11 @@
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "Floating bordered dialog with header, content, and footer slots. Installs the full Dialog family.",
+      "description": "Floating dialog wrapped in a HasciiCard with an outside top-right close button. Installs the full Dialog family.",
       "dependencies": ["@opentui/core", "@opentui/react", "react"],
       "registryDependencies": [
-        "hascii-theme-context",
+        "button",
+        "card",
         "dialog-header",
         "dialog-title",
         "dialog-description",
@@ -325,9 +331,9 @@
       "name": "dialog-header",
       "type": "registry:ui",
       "title": "Dialog Header",
-      "description": "Header with optional close button at the top of a Dialog.",
+      "description": "Vertical header group at the top of a Dialog.",
       "dependencies": ["@opentui/core", "@opentui/react", "react"],
-      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "registryDependencies": [],
       "files": [
         {
           "path": "registry/ui/hascii/dialog-header.tsx",
@@ -591,6 +597,208 @@
           "path": "registry/ui/hascii/toggle-group-item.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/toggle-group-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Pressable checkbox row with optional label.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/checkbox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On/off slider with a thumb that snaps between left and right edges.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/switch.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/switch.tsx"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Horizontal value slider. Left/Right adjusts value by step.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/slider.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/slider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Sparkline",
+      "description": "Single-row Unicode bar chart for compact trend display.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/sparkline.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/sparkline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Horizontal trail of crumbs joined by a separator.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/breadcrumb.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Horizontal step indicator with past, current, and future markers.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/stepper.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/stepper.tsx"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Vertical stack of collapsible sections. Installs the accordion container plus its item.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["accordion-item"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/accordion.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/accordion.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Convenience wrapper around HasciiDialog. Title, description, and OK / optional Cancel buttons exposed as props.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "dialog-description",
+        "dialog-footer",
+        "dialog-header",
+        "dialog-title"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/alert-dialog.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/alert-dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "accordion-item",
+      "type": "registry:ui",
+      "title": "Accordion Item",
+      "description": "Collapsible row inside HasciiAccordion. Open state is read from accordion context.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["accordion", "hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/accordion-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/accordion-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Static row/column table with auto column widths and an optional selected row.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/table.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tree",
+      "type": "registry:ui",
+      "title": "Tree",
+      "description": "Static box-drawing tree (\u251c \u2514 \u2502). indent prop controls cell width per nesting level.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/tree.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/tree.tsx"
+        }
+      ]
+    },
+    {
+      "name": "file-tree",
+      "type": "registry:ui",
+      "title": "File Tree",
+      "description": "Indented IDE-style file tree with collapsible folders (\u25be/\u25b8).",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/file-tree.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/file-tree.tsx"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Command palette: typed query filters the item list; \u2191/\u2193 moves the active row; Enter runs.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable", "input"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/command.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/command.tsx"
         }
       ]
     }

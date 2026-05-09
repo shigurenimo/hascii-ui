@@ -1,4 +1,4 @@
-Terminal UI components for [OpenTUI](https://opentui.com), distributed as a shadcn-compatible registry. Theming is split between `registry/lib/hascii/theme.ts` (semantic tokens) and `registry/lib/hascii/tw-token.ts` (Tailwind primitives).
+[OpenTUI](https://opentui.com) 向けのターミナル UI コンポーネント集です。shadcn registry 互換で配布されます。
 
 ```
 █ █  ▄▀▄  ▄▀▀  ▄▀▀  █  █
@@ -6,56 +6,23 @@ Terminal UI components for [OpenTUI](https://opentui.com), distributed as a shad
 ▀ ▀  ▀ ▀  ▀▀▘  ▀▀▘  ▀  ▀
 ```
 
-## Install
+## 使い方
 
-Add a single component through shadcn.
+セットアップから動かすまで 4 ステップ。
 
-```bash
-npx shadcn@latest add https://ui.hascii.sh/r/button.json
-```
+### components.json を用意
 
-Install everything at once.
+`shadcn init` は TailwindCSS を要求するので、TUI 専用プロジェクトでは失敗します。代わりに以下のコマンドでひな形を書き出します（既存ファイルがある場合は `--force` で上書き）。
 
 ```bash
-npx shadcn@latest add https://ui.hascii.sh/r/all.json
+bunx @hascii/ui init
 ```
 
-## Consumer setup
+生成される `components.json` には `@hascii` という名前空間が登録されているので、後段の `shadcn add @hascii/<name>` がそのまま通ります。
 
-`shadcn init` requires TailwindCSS, so it fails on TUI-only projects. Drop a minimal `components.json` at the project root and `shadcn add` will skip the init step.
+### tsconfig に @ エイリアス
 
-`bunx @hascii/ui init` writes one for you (bun is required since the CLI ships as a TypeScript entry with `#!/usr/bin/env bun`).
-
-```bash
-bunx @hascii/ui init       # fails if components.json exists. pass --force to overwrite
-```
-
-Generated content:
-
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "",
-    "baseColor": "neutral",
-    "cssVariables": false,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "lib": "@/lib",
-    "hooks": "@/hooks",
-    "ui": "@/components/ui"
-  }
-}
-```
-
-Components import via `@/` absolute paths, so make sure `tsconfig.json` exposes the `@/*` alias.
+コンポーネントは `@/` 絶対パスで import されるので、`tsconfig.json` の `paths` に対応を入れます。
 
 ```json
 {
@@ -66,9 +33,67 @@ Components import via `@/` absolute paths, so make sure `tsconfig.json` exposes 
 }
 ```
 
-## Keyboard focus
+### コンポーネントを取り込む
 
-To cycle focus across multiple focusable elements with Tab, wrap them in `HasciiFocusGroup`. Give each child a `focusId`, and pass the order to `ids` on the group. Tab moves forward; Shift+Tab moves back.
+単体で入れる場合。
+
+```bash
+npx shadcn@latest add @hascii/button
+```
+
+全部まとめて入れる場合は `all` aggregator を指定します。
+
+```bash
+npx shadcn@latest add @hascii/all
+```
+
+URL 直指定でも可。
+
+```bash
+npx shadcn@latest add https://ui.hascii.sh/r/button.json
+```
+
+### コードで使う
+
+`HasciiThemeProvider` で囲んだ中で読みます。OpenTUI の React レンダラ前提です。
+
+```tsx
+import { createCliRenderer } from "@opentui/core"
+import { createRoot } from "@opentui/react"
+import { HasciiThemeProvider } from "@/registry/lib/hascii/theme-context"
+import { HasciiButton } from "@/registry/ui/hascii/button"
+
+const renderer = await createCliRenderer({ exitOnCtrlC: true, useMouse: true })
+const root = createRoot(renderer)
+
+root.render(
+  <HasciiThemeProvider>
+    <HasciiButton onPress={() => console.log("clicked")}>Hello</HasciiButton>
+  </HasciiThemeProvider>,
+)
+```
+
+## テーマのカスタマイズ
+
+カラートークンは `DESIGN.md`（[google-labs-code/design.md](https://github.com/google-labs-code/design.md) 仕様）が単一の正本です。値を変えたら `make tokens` で `registry/lib/hascii/tokens.json` を再生成し、`theme.ts` がそれを zod で読み直します。
+
+ランタイムで上書きしたい場合は、`HasciiThemeProvider` に `theme` を渡すと差し替わります。
+
+```tsx
+import type { HasciiTheme } from "@/registry/lib/hascii/theme"
+import { hasciiTheme } from "@/registry/lib/hascii/theme"
+import { HasciiThemeProvider } from "@/registry/lib/hascii/theme-context"
+
+const customTheme: HasciiTheme = {
+  color: { ...hasciiTheme.color, primary: "#22d3ee" },
+}
+
+<HasciiThemeProvider theme={customTheme}>{children}</HasciiThemeProvider>
+```
+
+## キーボードフォーカス
+
+複数のフォーカス可能要素を Tab で循環させたい場合は `HasciiFocusGroup` で囲みます。子に `focusId` を付け、`ids` に順序を渡します。
 
 ```tsx
 <HasciiFocusGroup ids={["save", "cancel"] as const} defaultId="save">
@@ -79,101 +104,42 @@ To cycle focus across multiple focusable elements with Tab, wrap them in `Hascii
 </HasciiFocusGroup>
 ```
 
-A child with `focusId` does not need `props.isFocused` inside the group — the group manages focus state automatically.
+`focusId` が付いた子は `props.isFocused` を受け取らなくても、グループがフォーカス状態を管理します。
 
-## CLI
+## CLI でプレビュー
 
-A CLI for previewing components in the terminal ships with the package. With bun installed, `bunx @hascii/ui` is enough (use `bun link` instead during local development).
-
-Run with no arguments to launch an interactive showcase that lists every component.
+`bunx @hascii/ui` で全コンポーネントを横断するインタラクティブなショーケースが起動します。
 
 ```bash
 bunx @hascii/ui
 ```
 
-Render a single component with the `components` subcommand. Options are zod-validated.
+単体プレビューは `components` サブコマンド経由。zod でバリデートされたオプションを渡せます。
 
 ```bash
-bunx @hascii/ui components button --variant outline --size lg --label "save"
+bunx @hascii/ui components button --variant outline --size lg --label save
 bunx @hascii/ui components badge  --variant destructive --label removed
-bunx @hascii/ui components input  --label Email --placeholder you@example.com
-bunx @hascii/ui components card   --heading hascii --description hello@hascii.sh
-bunx @hascii/ui components select --options Default,Outline,Ghost,Destructive
+bunx @hascii/ui components --help
 ```
 
-Press `q` or `Esc` to quit. `--help` lists components and options.
-
-To serve the registry locally over HTTP, use `serve`.
+ローカルにレジストリを HTTP で立てたい場合は `serve`。
 
 ```bash
 bunx @hascii/ui serve --port 4445
 ```
 
-After it starts, you can install components from the local URL: `npx shadcn@latest add http://localhost:4445/button.json`.
+立ち上がったら、別プロジェクトから `npx shadcn@latest add http://localhost:4445/button.json` で取り込めます。
 
-## Layout
+## 開発
 
-```
-registry.json              shadcn registry manifest
-public/                    Vite build output (gitignore). deploy target
-  index.html, assets/      vite build output
-  r/, CNAME                copied from web/public by vite
-web/                       documentation site source (Vite + TailwindCSS)
-  index.html
-  src/main.ts
-  src/style.css
-  public/CNAME             custom domain
-  public/r/                shadcn build output (gitignore, served in dev)
-registry/
-  ui/hascii/               component sources (registry:ui)
-  lib/hascii/              tw-token, theme, theme-context (registry:lib)
-  hooks/hascii/            use-pressable (registry:hook)
-cli/                       Hono app + CLI entry
-  index.ts                 CLI entry
-  init.ts                  components.json generator
-  factory.ts               createFactory<Env>
-  routes/index.ts          root router (mount via COMPONENT_NAMES)
-  routes/components/       per-component handler with zod schema
-  routes/ui.tsx            showcase route
-  components/              React components for the showcase
-  utils/                   to-request, custom-validator, use-quit
-  render-component.tsx     centers a single component on screen
-  render-fullscreen.tsx    fullscreen runner
-  serve-registry.ts        local registry HTTP server
-```
-
-## Adding a component
-
-Add the source at `registry/ui/hascii/<name>.tsx`. Read theme tokens via `@/registry/lib/hascii/theme-context`.
-
-Add a zod-validated handler at `cli/routes/components/<name>.tsx`.
-
-Append the name to `COMPONENT_NAMES` in `cli/routes/index.ts` and mount it with `components.get("/<name>", ...)`.
-
-Add an entry to `registry.json` and run `make registry`. `make web` and `make build` already depend on `registry`, so the rebuild happens automatically inside the dev / publish flows.
-
-## Makefile
-
-`make dev` watches and runs the CLI.
-
-`make web` boots the documentation site. portless maps it to `https://ui.hascii.sh.localhost` (first run prompts for sudo and CA trust). registry is rebuilt first, then the vite dev server starts.
-
-`make build` runs registry then vite build, producing `public/` (vite copies `web/public/r/*.json` and `web/public/CNAME` into `public/`).
-
-`make registry` runs `bunx shadcn build --output web/public/r` to regenerate per-item JSON.
-
-`vp test` runs vitest. `vp lint` and `vp fmt` run on the same toolchain.
-
-## shadcn registry
-
-Each component ships as JSON conforming to the shadcn registry-item schema. The official `shadcn build` reads `registry.json` and writes `web/public/r/<name>.json`; vite copies those into `public/r/<name>.json` for deployment. Once `public/` is served at the public URL, consumers install with:
+このリポジトリ自体を触る場合のコマンド。
 
 ```bash
-npx shadcn@latest add https://ui.hascii.sh/r/<name>.json
+make dev        # CLI を watch
+make web        # ドキュメントサイトをローカル起動
+make tokens     # DESIGN.md → tokens.json を再生成
+make registry   # tokens を再生成してから shadcn build
+make build      # 公開用の public/ を生成
 ```
 
-`hascii-tw-token`, `hascii-theme`, and `hascii-theme-context` are the shared lib items every component pulls in via `registryDependencies`.
-
-## Deploy
-
-`.github/workflows/deploy.yml` runs `make build` on every push to `main` and uploads `public/` to GitHub Pages. `web/public/CNAME` pins the custom domain to `ui.hascii.sh`. In repository Settings → Pages, set the source to `GitHub Actions`, then point the `ui.hascii.sh` CNAME at `<owner>.github.io` in DNS.
+新しいコンポーネントの追加手順は `CLAUDE.md` を参照してください。

@@ -36,7 +36,7 @@ if (args[0] === "init") {
   }
 
   process.stdout.write(`created components.json\n`)
-  process.stdout.write(`next: npx shadcn@latest add https://ui.hascii.sh/r/button.json\n`)
+  process.stdout.write(`next: npx shadcn@latest add @hascii/button\n`)
   process.exit(0)
 }
 
@@ -54,7 +54,7 @@ if (args[0] === "serve") {
   process.stdout.write(`hascii-ui registry serving at ${url}\n`)
   process.stdout.write(`add a single component:\n`)
   process.stdout.write(`  npx shadcn@latest add ${url}/button.json\n`)
-  process.stdout.write(`add every component at once:\n`)
+  process.stdout.write(`add every component:\n`)
   process.stdout.write(`  npx shadcn@latest add ${url}/all.json\n`)
   process.stdout.write(`press Ctrl+C to stop.\n`)
 

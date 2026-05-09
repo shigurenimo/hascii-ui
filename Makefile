@@ -1,4 +1,4 @@
-.PHONY: dev serve web build build-cli registry
+.PHONY: dev serve web build build-cli registry tokens
 
 dev:
 	bun run --watch cli/index.ts
@@ -9,11 +9,14 @@ serve: registry
 web: registry
 	bunx portless run vite
 
-build: registry build-cli
+build: tokens registry build-cli
 	bunx vite build
 
 build-cli:
 	bun run build:cli
 
-registry:
+registry: tokens
 	bunx shadcn build --output web/public/r
+
+tokens:
+	npx --yes "@google/design.md" export DESIGN.md --format tailwind > registry/lib/hascii/tokens.json

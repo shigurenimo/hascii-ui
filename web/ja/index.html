@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@hascii/ui</title>
     <meta
       name="description"
-      content="Terminal UI components for OpenTUI, distributable via shadcn registry."
+      content="OpenTUI 向けのターミナル UI コンポーネント。shadcn registry 互換で配布。"
     />
     <link rel="alternate" hreflang="en" href="https://ui.hascii.sh/" />
     <link rel="alternate" hreflang="ja" href="https://ui.hascii.sh/ja/" />
@@ -22,9 +22,8 @@
 ▀ ▀  ▀ ▀  ▀▀▘  ▀▀▘  ▀  ▀</pre
         >
         <p class="text-zinc-400">
-          Terminal UI components for
-          <a href="https://opentui.com" class="text-zinc-50 underline">OpenTUI</a>, distributed via
-          shadcn registry.
+          <a href="https://opentui.com" class="text-zinc-50 underline">OpenTUI</a>
+          向けのターミナル UI コンポーネント。shadcn registry 互換で配布されます。
         </p>
         <div class="flex gap-4 text-sm">
           <a
@@ -32,25 +31,25 @@
             class="text-zinc-300 hover:text-zinc-50"
             >GitHub</a
           >
-          <span class="text-zinc-50 underline">EN</span>
-          <a href="/ja/" class="text-zinc-300 hover:text-zinc-50">JA</a>
+          <a href="/" class="text-zinc-300 hover:text-zinc-50">EN</a>
+          <span class="text-zinc-50 underline">JA</span>
         </div>
       </header>
 
       <section class="space-y-6">
-        <h2 class="text-3xl font-bold text-zinc-50">Setup</h2>
+        <h2 class="text-3xl font-bold text-zinc-50">セットアップ</h2>
         <p class="text-sm text-zinc-400">
-          <code>shadcn init</code> requires TailwindCSS, so it fails on TUI-only projects. Use
-          <code>@hascii/ui init</code> instead — it writes a minimal
-          <code>components.json</code> and registers the <code>@hascii</code> namespace, so
-          subsequent <code>shadcn add</code> calls just work.
+          <code>shadcn init</code> は TailwindCSS を要求するので、TUI
+          専用プロジェクトでは失敗します。代わりに
+          <code>@hascii/ui init</code> でひな形を書き出します。<code>@hascii</code>
+          名前空間が登録されるので、後段の <code>shadcn add</code> がそのまま通ります。
         </p>
         <pre
           class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
         ><code>bunx @hascii/ui init</code></pre>
         <p class="text-sm text-zinc-400">
-          Components import via <code>@/</code> absolute paths. Make sure your
-          <code>tsconfig.json</code> resolves the alias.
+          コンポーネントは <code>@/</code> 絶対パスで import されるので、<code>tsconfig.json</code>
+          の <code>paths</code> にエイリアスを通します。
         </p>
         <pre class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"><code>{
   "compilerOptions": {
@@ -61,13 +60,13 @@
       </section>
 
       <section class="space-y-6">
-        <h2 class="text-3xl font-bold text-zinc-50">Add components</h2>
-        <p class="text-sm text-zinc-400">A single component.</p>
+        <h2 class="text-3xl font-bold text-zinc-50">コンポーネントを追加</h2>
+        <p class="text-sm text-zinc-400">単体で入れる場合。</p>
         <pre
           class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
         ><code>npx shadcn@latest add @hascii/button</code></pre>
         <p class="text-sm text-zinc-400">
-          All components at once via the <code>all</code> aggregator.
+          全部まとめて入れる場合は <code>all</code> aggregator を使います。
         </p>
         <pre
           class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
@@ -75,10 +74,9 @@
       </section>
 
       <section class="space-y-6">
-        <h2 class="text-3xl font-bold text-zinc-50">Use it</h2>
+        <h2 class="text-3xl font-bold text-zinc-50">使う</h2>
         <p class="text-sm text-zinc-400">
-          Wrap your tree in <code>HasciiThemeProvider</code> and render components with the OpenTUI
-          React renderer.
+          <code>HasciiThemeProvider</code> で囲んだ中で読みます。OpenTUI の React レンダラ前提です。
         </p>
         <pre
           class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
@@ -98,19 +96,19 @@ root.render(
       </section>
 
       <section class="space-y-6">
-        <h2 class="text-3xl font-bold text-zinc-50">Preview in your terminal</h2>
+        <h2 class="text-3xl font-bold text-zinc-50">ターミナルでプレビュー</h2>
         <p class="text-sm text-zinc-400">
-          With no arguments, the CLI launches an interactive showcase.
-          <code>components &lt;name&gt;</code> renders a single component centered. Subcommands
-          accept zod-validated options like <code>--variant</code>, <code>--size</code>,
-          <code>--label</code>. Append <code>--help</code> for the full list.
+          引数なしでショーケースが起動。<code>components &lt;name&gt;</code>
+          で個別コンポーネントを中央描画。zod バリデートされたオプションを <code>--variant</code> や
+          <code>--size</code> などで渡せます。<code>--help</code>
+          で全オプションが見られます。
         </p>
         <pre
           class="overflow-x-auto border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm"
-        ><code>bunx @hascii/ui                                        # interactive showcase
+        ><code>bunx @hascii/ui                                        # インタラクティブ
 bunx @hascii/ui components button --variant outline --size lg --label save
 bunx @hascii/ui components badge  --variant destructive --label removed
-bunx @hascii/ui components --help                      # list everything</code></pre>
+bunx @hascii/ui components --help                      # 全コンポーネントの一覧</code></pre>
       </section>
 
       <footer class="border-t border-zinc-800 pt-6 text-xs text-zinc-500">

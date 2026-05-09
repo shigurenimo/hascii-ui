@@ -8,6 +8,12 @@ export default defineConfig({
   build: {
     outDir: "../public",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        en: resolve(import.meta.dirname, "web/index.html"),
+        ja: resolve(import.meta.dirname, "web/ja/index.html"),
+      },
+    },
   },
   plugins: [tailwindcss()],
   resolve: {

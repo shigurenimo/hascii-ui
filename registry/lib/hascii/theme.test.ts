@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { hasciiTheme } from "@/registry/lib/hascii/theme"
-import { hasciiTw } from "@/registry/lib/hascii/tw-token"
+import { hasciiTheme, hasciiTw } from "@/registry/lib/hascii/theme"
 
 describe("hasciiTheme", () => {
   test("primary references the lightest zinc shade", () => {

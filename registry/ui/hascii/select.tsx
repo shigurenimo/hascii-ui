@@ -3,7 +3,6 @@ import { useKeyboard } from "@opentui/react"
 import { useState } from "react"
 import type { HasciiTheme } from "@/registry/lib/hascii/theme"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
-import { hasciiTw } from "@/registry/lib/hascii/tw-token"
 import { usePressable } from "@/registry/hooks/hascii/use-pressable"
 
 export type Props = {
@@ -24,7 +23,7 @@ const pickItemBg = (
   theme: HasciiTheme,
 ): string | undefined => {
   if (pressed) return theme.color.secondaryActive
-  if (hovered && isActive) return hasciiTw.colors.zinc[500]
+  if (hovered && isActive) return theme.color.hoverActive
   if (hovered) return theme.color.secondaryHover
   if (isActive) return theme.color.secondaryActive
   return undefined

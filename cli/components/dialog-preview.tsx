@@ -9,7 +9,6 @@ import { HasciiFocusGroup } from "@/registry/ui/hascii/focus-group"
 import { useQuit } from "@/cli/utils/use-quit"
 
 export type Props = {
-  variant: "default" | "outline"
   title: string
   description: string
   body: string
@@ -20,14 +19,14 @@ export type Props = {
 
 const FOCUS_IDS = ["cancel", "confirm"] as const
 
-/** Dialog wrapped with a useQuit-bound close handler so the × button tears down the renderer cleanly. Tab cycles between footer buttons. */
+/** Dialog wrapped with a useQuit-bound close handler so the x button tears down the renderer cleanly. Tab cycles between footer buttons. */
 export function DialogPreview(props: Props) {
   const quit = useQuit()
 
   return (
     <HasciiFocusGroup ids={FOCUS_IDS} defaultId="confirm">
-      <HasciiDialog variant={props.variant} width={props.width}>
-        <HasciiDialogHeader onClose={quit}>
+      <HasciiDialog width={props.width} onClose={quit}>
+        <HasciiDialogHeader>
           <HasciiDialogTitle>{props.title}</HasciiDialogTitle>
           <HasciiDialogDescription>{props.description}</HasciiDialogDescription>
         </HasciiDialogHeader>
@@ -37,10 +36,10 @@ export function DialogPreview(props: Props) {
           </HasciiDialogContent>
         ) : null}
         <HasciiDialogFooter>
-          <HasciiButton variant="secondary" size="sm" focusId="cancel">
+          <HasciiButton variant="secondary" size="default" focusId="cancel">
             {props.cancel}
           </HasciiButton>
-          <HasciiButton variant="default" size="sm" focusId="confirm">
+          <HasciiButton variant="default" size="default" focusId="confirm">
             {props.confirm}
           </HasciiButton>
         </HasciiDialogFooter>

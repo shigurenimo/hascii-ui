@@ -1,40 +1,61 @@
 import { z } from "zod"
-import { DialogPreview } from "@/cli/components/dialog-preview"
+import { HasciiAlertDialog } from "@/registry/ui/hascii/alert-dialog"
 import { factory } from "@/cli/factory"
 import { renderComponent } from "@/cli/render-component"
 import { customValidator } from "@/cli/utils/custom-validator"
+import { useQuit } from "@/cli/utils/use-quit"
 
-const help = `usage: hascii-ui components dialog [options]
+const help = `usage: hascii-ui components alert-dialog [options]
 
 options:
   --title         dialog title             (default: Are you sure?)
   --description   secondary description    (default: Lorem ipsum)
-  --body          body paragraph           (default: empty)
-  --confirm       confirm button label     (default: Confirm)
-  --cancel        cancel button label      (default: Cancel)
+  --ok            ok button label          (default: OK)
+  --cancel        cancel button label      (default: empty — hides cancel)
   --width         dialog width in cells    (default: 48)
   --help, -h                                show this help`
 
 const schema = z.object({
   title: z.string().default("Are you sure?"),
   description: z.string().default("This action cannot be undone. Please confirm to proceed."),
-  body: z.string().default(""),
-  confirm: z.string().default("Confirm"),
-  cancel: z.string().default("Cancel"),
+  ok: z.string().default("OK"),
+  cancel: z.string().default(""),
   width: z.coerce.number().int().positive().default(48),
 })
 
-export const dialogHandler = factory.createHandlers(
+function AlertDialogPreview(props: {
+  title: string
+  description: string
+  ok: string
+  cancel: string
+  width: number
+}) {
+  const quit = useQuit()
+
+  return (
+    <HasciiAlertDialog
+      width={props.width}
+      title={props.title}
+      description={props.description}
+      okText={props.ok}
+      cancelText={props.cancel.length > 0 ? props.cancel : undefined}
+      onOk={quit}
+      onCancel={quit}
+      onClose={quit}
+    />
+  )
+}
+
+export const alertDialogHandler = factory.createHandlers(
   customValidator("query", schema, help),
   async (c) => {
     const query = c.req.valid("query")
 
     await renderComponent(
-      <DialogPreview
+      <AlertDialogPreview
         title={query.title}
         description={query.description}
-        body={query.body}
-        confirm={query.confirm}
+        ok={query.ok}
         cancel={query.cancel}
         width={query.width}
       />,

@@ -20,6 +20,9 @@ const COMPONENTS_JSON = {
     hooks: "@/hooks",
     ui: "@/components/ui",
   },
+  registries: {
+    "@hascii": "https://ui.hascii.sh/r/{name}.json",
+  },
 }
 
 type Props = {
@@ -27,7 +30,7 @@ type Props = {
   force: boolean
 }
 
-/** Write a hascii-ui flavored components.json so shadcn add can run without `shadcn init` (which requires TailwindCSS). */
+/** Write a hascii-ui flavored components.json so shadcn add can run without `shadcn init` (which requires TailwindCSS). Includes the @hascii/ui namespace so `shadcn add @hascii/ui/<name>` and `shadcn add @hascii/ui -a` resolve. */
 export function init(props: Props): Error | null {
   const target = resolve(props.cwd, "components.json")
 
