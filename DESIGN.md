@@ -264,7 +264,7 @@ Custom composition: a static `─` track behind a native `<slider>` (from `@open
 ### Do
 
 - Reuse the five-rung interactive-state palette for every selectable row. Copy `pickRowBg` from a sibling component as a starting point.
-- Pull colors from `useHasciiTheme()`. Every interactive ladder step has a theme token now, including `hoverActive`. Avoid reaching into `hasciiTw.colors.*` directly from components.
+- Pull colors from `useHasciiTheme()`. Every interactive ladder step has a theme token now, including `hoverActive`. Tokens are the only color surface — don't import any raw palette helpers.
 - Pad between two sibling `<text>` elements with `<box paddingLeft={1|2}>` when one of them contains a wide glyph.
 - Render active/open rules with absolutely-positioned `▏` columns at `left={0}`.
 

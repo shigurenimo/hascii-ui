@@ -3,6 +3,8 @@ import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
 
 export type Props = {
   width?: number
+  height?: number
+  flexGrow?: number
   children?: ReactNode
 }
 
@@ -20,6 +22,8 @@ export function HasciiCard(props: Props) {
       paddingRight={2}
       gap={0}
       width={props.width}
+      height={props.height}
+      flexGrow={props.flexGrow}
     >
       {props.children}
     </box>

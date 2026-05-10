@@ -9,17 +9,19 @@
       "title": "All hascii-ui components",
       "description": "Aggregator that pulls every hascii-ui item via registryDependencies. Install with `npx shadcn@latest add @hascii/all`.",
       "registryDependencies": [
-        "hascii-theme",
-        "hascii-theme-context",
-        "hascii-input-focus-context",
-        "hascii-use-pressable",
-        "focus-group",
         "accordion",
         "accordion-item",
         "alert-dialog",
         "badge",
+        "banner",
+        "bar-chart",
         "breadcrumb",
         "button",
+        "calendar",
+        "canvas",
+        "canvas-cell",
+        "canvas-pixel",
+        "canvas-pixel-cell",
         "card",
         "card-content",
         "card-description",
@@ -27,6 +29,7 @@
         "card-header",
         "card-title",
         "checkbox",
+        "code",
         "command",
         "dialog",
         "dialog-content",
@@ -34,10 +37,25 @@
         "dialog-footer",
         "dialog-header",
         "dialog-title",
+        "diff",
         "file-tree",
+        "focus-group",
+        "form-item",
+        "gauge",
+        "hascii-form-item-context",
+        "hascii-input-focus-context",
+        "hascii-syntax-style",
+        "hascii-theme",
+        "hascii-theme-context",
+        "hascii-use-hascii-canvas",
+        "hascii-use-hascii-canvas-pixel",
+        "hascii-use-pressable",
         "input",
         "input-otp",
+        "markdown",
         "pagination",
+        "palette",
+        "palette-item",
         "progress",
         "select",
         "separator",
@@ -54,6 +72,9 @@
         "switch",
         "table",
         "tabs",
+        "textarea",
+        "toggle-grid",
+        "toggle-grid-item",
         "toggle-group",
         "toggle-group-item",
         "tree"
@@ -96,6 +117,33 @@
       ]
     },
     {
+      "name": "hascii-form-item-context",
+      "type": "registry:lib",
+      "title": "Form Item Context",
+      "description": "Provider that lets HasciiFormItem share its focus id with the wrapped HasciiInput.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/lib/hascii/form-item-context.tsx",
+          "type": "registry:lib",
+          "target": "@lib/hascii/form-item-context.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hascii-syntax-style",
+      "type": "registry:lib",
+      "title": "Syntax Style",
+      "description": "Lazily-built SyntaxStyle that maps tree-sitter token scopes to hascii palette colors. Shared by Code, Markdown, Diff.",
+      "files": [
+        {
+          "path": "registry/lib/hascii/syntax-style.ts",
+          "type": "registry:lib",
+          "target": "@lib/hascii/syntax-style.ts"
+        }
+      ]
+    },
+    {
       "name": "hascii-input-focus-context",
       "type": "registry:lib",
       "title": "Input Focus Context",
@@ -134,6 +182,20 @@
           "path": "registry/hooks/hascii/use-pressable.ts",
           "type": "registry:hook",
           "target": "@hooks/hascii/use-pressable.ts"
+        }
+      ]
+    },
+    {
+      "name": "hascii-use-hascii-canvas-pixel",
+      "type": "registry:hook",
+      "title": "useHasciiCanvasPixel",
+      "description": "Reducer-backed controller for HasciiCanvasPixel. Owns grid + brush + paint mutations; spread it as `state` prop.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/hooks/hascii/use-hascii-canvas-pixel.ts",
+          "type": "registry:hook",
+          "target": "@hooks/hascii/use-hascii-canvas-pixel.ts"
         }
       ]
     },
@@ -358,12 +420,35 @@
       ]
     },
     {
+      "name": "form-item",
+      "type": "registry:ui",
+      "title": "Form Item",
+      "description": "Horizontal label + field row. Label sits in a fixed-width left column and brightens while the wrapped HasciiInput is focused.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "hascii-input-focus-context",
+        "hascii-form-item-context"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/form-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/form-item.tsx"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
       "description": "Single-line text input wrapped in a focused container.",
       "dependencies": ["@opentui/core", "@opentui/react", "react"],
-      "registryDependencies": ["hascii-theme-context", "hascii-input-focus-context"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "hascii-input-focus-context",
+        "hascii-form-item-context"
+      ],
       "files": [
         {
           "path": "registry/ui/hascii/input.tsx",
@@ -571,6 +656,26 @@
       ]
     },
     {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text editor backed by @opentui/core's TextareaRenderable. Click to focus, Esc to blur.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "hascii-input-focus-context",
+        "hascii-form-item-context",
+        "hascii-use-pressable"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/textarea.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/textarea.tsx"
+        }
+      ]
+    },
+    {
       "name": "toggle-group",
       "type": "registry:ui",
       "title": "Toggle Group",
@@ -597,6 +702,36 @@
           "path": "registry/ui/hascii/toggle-group-item.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/toggle-group-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle-grid",
+      "type": "registry:ui",
+      "title": "Toggle Grid",
+      "description": "Wrapping grid of HasciiToggleGridItem cells, similar to a braille dot pad. Use for picking from large sets of values.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["toggle-grid-item"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/toggle-grid.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/toggle-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toggle-grid-item",
+      "type": "registry:ui",
+      "title": "Toggle Grid Item",
+      "description": "Filled rectangular cell inside a HasciiToggleGrid. Default size is 3x1.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["toggle-grid", "hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/toggle-grid-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/toggle-grid-item.tsx"
         }
       ]
     },
@@ -657,6 +792,21 @@
           "path": "registry/ui/hascii/sparkline.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/sparkline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:ui",
+      "title": "Banner",
+      "description": "Large display text rendered with @opentui/core's ASCIIFontRenderable. Pick a font from tiny/block/shade/slick/huge/grid/pallet.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/banner.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/banner.tsx"
         }
       ]
     },
@@ -799,6 +949,204 @@
           "path": "registry/ui/hascii/command.tsx",
           "type": "registry:ui",
           "target": "@ui/hascii/command.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Horizontal bar chart with row labels and optional numeric values.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/bar-chart.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Month grid date picker. Today gets a brighter foreground; the selected day fills with primary.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/calendar.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/calendar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "code",
+      "type": "registry:ui",
+      "title": "Code",
+      "description": "Code block backed by @opentui/core's CodeRenderable. Syntax highlighting requires a TreeSitterClient.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-syntax-style", "hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/code.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/code.tsx"
+        }
+      ]
+    },
+    {
+      "name": "diff",
+      "type": "registry:ui",
+      "title": "Diff",
+      "description": "Diff viewer (unified or split) backed by @opentui/core's DiffRenderable.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-syntax-style", "hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/diff.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/diff.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gauge",
+      "type": "registry:ui",
+      "title": "Gauge",
+      "description": "Single-row arc gauge with a thumb marker and an optional percentage label below.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/gauge.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/gauge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "markdown",
+      "type": "registry:ui",
+      "title": "Markdown",
+      "description": "Markdown renderer backed by @opentui/core's MarkdownRenderable.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-syntax-style", "hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/markdown.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/markdown.tsx"
+        }
+      ]
+    },
+    {
+      "name": "palette-item",
+      "type": "registry:ui",
+      "title": "Palette Item",
+      "description": "Vertical pressable swatch with an optional label. One slot in a HasciiPalette.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme", "hascii-theme-context", "hascii-use-pressable"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/palette-item.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/palette-item.tsx"
+        }
+      ]
+    },
+    {
+      "name": "palette",
+      "type": "registry:ui",
+      "title": "Palette",
+      "description": "Horizontal row container for HasciiPaletteItem children. Use to render a color picker bar.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["palette-item"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/palette.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/palette.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-pixel",
+      "type": "registry:ui",
+      "title": "Canvas Pixel",
+      "description": "Paintable rows \u00d7 cols pixel-art grid driven by a HasciiCanvasPixelState controller. Click and drag to fill cells.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [
+        "hascii-theme-context",
+        "canvas-pixel-cell",
+        "hascii-use-hascii-canvas-pixel"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/hascii/canvas-pixel.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/canvas-pixel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-pixel-cell",
+      "type": "registry:ui",
+      "title": "Canvas Pixel Cell",
+      "description": "Single rectangular cell of a HasciiCanvasPixel grid. Fills with a color and optionally overlays a cursor mark.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/canvas-pixel-cell.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/canvas-pixel-cell.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-cell",
+      "type": "registry:ui",
+      "title": "Canvas Cell",
+      "description": "Single character cell of a HasciiCanvas grid. Char + fg + optional bg.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/hascii/canvas-cell.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/canvas-cell.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas",
+      "type": "registry:ui",
+      "title": "Canvas",
+      "description": "Full ASCII-art canvas. Each cell holds a character + foreground + optional background. Driven by useHasciiCanvas.",
+      "dependencies": ["@opentui/core", "@opentui/react", "react"],
+      "registryDependencies": ["hascii-theme-context", "canvas-cell", "hascii-use-hascii-canvas"],
+      "files": [
+        {
+          "path": "registry/ui/hascii/canvas.tsx",
+          "type": "registry:ui",
+          "target": "@ui/hascii/canvas.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hascii-use-hascii-canvas",
+      "type": "registry:hook",
+      "title": "useHasciiCanvas",
+      "description": "Reducer-backed controller for HasciiCanvas. Owns grid + brush (char/fg/bg) + paint mutations.",
+      "dependencies": ["react"],
+      "files": [
+        {
+          "path": "registry/hooks/hascii/use-hascii-canvas.ts",
+          "type": "registry:hook",
+          "target": "@hooks/hascii/use-hascii-canvas.ts"
         }
       ]
     }

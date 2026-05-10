@@ -1,4 +1,24 @@
 #!/usr/bin/env bun
+// OpenTUI's tree-sitter worker is loaded from bun's install cache at runtime,
+// where it can't resolve `web-tree-sitter`. Walk up from cwd to find the project-local
+// copy of parser.worker.js whose sibling node_modules can resolve the dep.
+import { existsSync } from "node:fs"
+import { dirname, resolve } from "node:path"
+
+if (!process.env.OTUI_TREE_SITTER_WORKER_PATH) {
+  let dir = process.cwd()
+  while (true) {
+    const candidate = resolve(dir, "node_modules/@opentui/core/parser.worker.js")
+    if (existsSync(candidate)) {
+      process.env.OTUI_TREE_SITTER_WORKER_PATH = candidate
+      break
+    }
+    const parent = dirname(dir)
+    if (parent === dir) break
+    dir = parent
+  }
+}
+
 import { init } from "@/cli/init"
 import { app } from "@/cli/routes"
 import { startRegistryServer } from "@/cli/serve-registry"

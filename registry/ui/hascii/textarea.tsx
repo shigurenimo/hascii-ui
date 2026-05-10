@@ -1,5 +1,6 @@
+import type { TextareaRenderable } from "@opentui/core"
 import { useKeyboard } from "@opentui/react"
-import { useId, useState } from "react"
+import { useId, useRef, useState } from "react"
 import { useHasciiFormItem } from "@/registry/lib/hascii/form-item-context"
 import { useHasciiInputFocus } from "@/registry/lib/hascii/input-focus-context"
 import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
@@ -10,17 +11,18 @@ type Variant = "default" | "outline"
 export type Props = {
   variant?: Variant
   placeholder?: string
-  value?: string
+  initialValue?: string
   width?: number
+  height?: number
   defaultFocused?: boolean
-  onInput?: (value: string) => void
-  onChange?: (value: string) => void
+  onSubmit?: (value: string) => void
 }
 
-/** Single-line text input. Click to focus, Esc / outside click to blur (requires HasciiInputFocusProvider for outside click). */
-export function HasciiInput(props: Props) {
+/** Multi-line text editor. Click to focus, Esc to blur (requires HasciiInputFocusProvider for outside-click). */
+export function HasciiTextarea(props: Props) {
   const variant = props.variant ?? "default"
-  const width = props.width ?? 32
+  const width = props.width ?? 48
+  const height = props.height ?? 8
   const placeholder = props.placeholder ?? ""
 
   const fallbackId = useId()
@@ -42,6 +44,12 @@ export function HasciiInput(props: Props) {
 
   const theme = useHasciiTheme()
   const press = usePressable()
+  const textareaRef = useRef<TextareaRenderable | null>(null)
+
+  const handleSubmit = (): void => {
+    const value = textareaRef.current?.editBuffer.getText() ?? ""
+    props.onSubmit?.(value)
+  }
 
   useKeyboard((key) => {
     if (!isFocused) return
@@ -62,12 +70,11 @@ export function HasciiInput(props: Props) {
         border
         borderStyle="rounded"
         borderColor={borderColor}
-        height={3}
+        height={height}
         width={width}
         paddingLeft={1}
         paddingRight={1}
         backgroundColor={theme.color.background}
-        justifyContent="center"
         {...press.bind}
         onMouseDown={(event) => {
           event.stopPropagation()
@@ -75,15 +82,14 @@ export function HasciiInput(props: Props) {
           focus()
         }}
       >
-        <input
+        <textarea
+          ref={textareaRef}
           focused={isFocused}
           placeholder={placeholder}
-          value={props.value}
+          initialValue={props.initialValue}
           textColor={theme.color.foreground}
           placeholderColor={theme.color.mutedForeground}
-          cursorColor={theme.color.foreground}
-          onInput={props.onInput}
-          onChange={props.onChange}
+          onSubmit={handleSubmit}
         />
       </box>
     )
@@ -97,12 +103,13 @@ export function HasciiInput(props: Props) {
 
   return (
     <box
-      height={3}
+      height={height}
       width={width}
       paddingLeft={2}
       paddingRight={2}
+      paddingTop={1}
+      paddingBottom={1}
       backgroundColor={bg}
-      justifyContent="center"
       {...press.bind}
       onMouseDown={(event) => {
         event.stopPropagation()
@@ -110,15 +117,14 @@ export function HasciiInput(props: Props) {
         focus()
       }}
     >
-      <input
+      <textarea
+        ref={textareaRef}
         focused={isFocused}
         placeholder={placeholder}
-        value={props.value}
+        initialValue={props.initialValue}
         textColor={theme.color.foreground}
         placeholderColor={theme.color.mutedForeground}
-        cursorColor={theme.color.foreground}
-        onInput={props.onInput}
-        onChange={props.onChange}
+        onSubmit={handleSubmit}
       />
       {isFocused ? (
         <box position="absolute" bottom={0} left={0} right={0}>

@@ -17,12 +17,12 @@ const pickHeaderBg = (
   isHovered: boolean,
   isPressed: boolean,
   theme: HasciiTheme,
-): string | undefined => {
-  if (isPressed) return theme.color.secondaryActive
+): string => {
+  if (isPressed) return theme.color.hoverActive
   if (isHovered && isOpen) return theme.color.hoverActive
+  if (isOpen) return theme.color.hoverActive
   if (isHovered) return theme.color.secondaryHover
-  if (isOpen) return theme.color.secondaryActive
-  return undefined
+  return theme.color.muted
 }
 
 /** Single collapsible row inside HasciiAccordion. Header tracks the same hover/active palette as HasciiSidebarMenuItem; body uses a muted text color. */
@@ -40,14 +40,11 @@ export function HasciiAccordionItem(props: Props) {
 
   const titleFg = isOpen || press.isHovered ? theme.color.foreground : theme.color.mutedForeground
 
-  const indicator = isOpen ? "▾" : "▸"
-
   return (
     <box flexDirection="column">
       <box
         flexDirection="row"
         alignItems="center"
-        gap={1}
         paddingLeft={2}
         paddingRight={2}
         paddingTop={1}
@@ -65,19 +62,18 @@ export function HasciiAccordionItem(props: Props) {
             ))}
           </box>
         ) : null}
-        <text fg={titleFg}>{indicator}</text>
         <text fg={titleFg}>{props.title}</text>
       </box>
       {isOpen ? (
         <box
-          paddingLeft={4}
+          paddingLeft={2}
           paddingRight={2}
           paddingTop={1}
           paddingBottom={1}
-          backgroundColor={theme.color.muted}
+          backgroundColor={theme.color.popover}
         >
           {typeof props.children === "string" ? (
-            <text fg={theme.color.mutedForeground}>{props.children}</text>
+            <text fg={theme.color.foreground}>{props.children}</text>
           ) : (
             props.children
           )}

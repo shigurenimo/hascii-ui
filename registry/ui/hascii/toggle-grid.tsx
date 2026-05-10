@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react"
 import type { ReactNode } from "react"
-import { useHasciiTheme } from "@/registry/lib/hascii/theme-context"
 
 type SelectionMode = "single" | "multiple"
 
@@ -19,6 +18,9 @@ type MultipleProps = {
 }
 
 export type Props = (SingleProps | MultipleProps) & {
+  direction?: "row" | "column"
+  columnGap?: number
+  rowGap?: number
   children?: ReactNode
 }
 
@@ -28,23 +30,25 @@ type ContextValue = {
   toggle: (value: string) => void
 }
 
-const ToggleGroupContext = createContext<ContextValue | null>(null)
+const ToggleGridContext = createContext<ContextValue | null>(null)
 
-/** Read the current ToggleGroup context. Returns null when called outside a HasciiToggleGroup. */
-export function useHasciiToggleGroup(): ContextValue | null {
-  return useContext(ToggleGroupContext)
+/** Read the current ToggleGrid context. Returns null when called outside a HasciiToggleGrid. */
+export function useHasciiToggleGrid(): ContextValue | null {
+  return useContext(ToggleGridContext)
 }
 
 const isSingle = (props: Props): props is SingleProps & { children?: ReactNode } =>
   props.type !== "multiple"
 
-/** Segmented row of HasciiToggleGroupItem. type="single" is mutually exclusive; type="multiple" allows any subset. */
-export function HasciiToggleGroup(props: Props) {
-  const theme = useHasciiTheme()
+/** Wrapping grid of HasciiToggleGridItem. Items are filled rectangular cells, similar to a braille dot pad. */
+export function HasciiToggleGrid(props: Props) {
   const internalSingleState = useState<string>(isSingle(props) ? (props.defaultValue ?? "") : "")
   const internalMultipleState = useState<string[]>(
     !isSingle(props) ? (props.defaultValue ?? []) : [],
   )
+  const direction = props.direction ?? "row"
+  const columnGap = props.columnGap ?? (direction === "row" ? 1 : 0)
+  const rowGap = props.rowGap ?? (direction === "row" ? 1 : 0)
 
   if (isSingle(props)) {
     const internal = internalSingleState[0]
@@ -63,17 +67,16 @@ export function HasciiToggleGroup(props: Props) {
     }
 
     return (
-      <ToggleGroupContext.Provider value={ctx}>
+      <ToggleGridContext.Provider value={ctx}>
         <box
-          flexDirection="row"
-          gap={0}
-          height={1}
-          alignSelf="flex-start"
-          backgroundColor={theme.color.popover}
+          flexDirection={direction}
+          flexWrap={direction === "row" ? "wrap" : "no-wrap"}
+          columnGap={columnGap}
+          rowGap={rowGap}
         >
           {props.children}
         </box>
-      </ToggleGroupContext.Provider>
+      </ToggleGridContext.Provider>
     )
   }
 
@@ -96,10 +99,15 @@ export function HasciiToggleGroup(props: Props) {
   }
 
   return (
-    <ToggleGroupContext.Provider value={ctx}>
-      <box flexDirection="row" gap={0} height={1} alignSelf="flex-start">
+    <ToggleGridContext.Provider value={ctx}>
+      <box
+        flexDirection={direction}
+        flexWrap={direction === "row" ? "wrap" : "no-wrap"}
+        columnGap={columnGap}
+        rowGap={rowGap}
+      >
         {props.children}
       </box>
-    </ToggleGroupContext.Provider>
+    </ToggleGridContext.Provider>
   )
 }
